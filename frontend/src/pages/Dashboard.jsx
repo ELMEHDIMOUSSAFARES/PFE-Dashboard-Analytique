@@ -1,115 +1,58 @@
-import { Card, CardContent } from "@/components/ui/card";
-import {
-  PieChart, Pie, Cell,
-  BarChart, Bar, XAxis, YAxis, Tooltip,
-  ResponsiveContainer,
-} from "recharts";
+import { DollarSign, ShoppingCart, Users, TrendingUp } from "lucide-react";
+import StatCard from "../components/StatCard";
+import RecentOrders from "../components/RecentOrders";
+import SalesChart from "../components/SalesChart";
+import DonutChart from "../components/DonutChart";
+import TodoList from "../components/TodoList";
+
+const stats = [
+  { label: "Total Revenue", value: "$48,295", change: "+12.5%", positive: true, icon: DollarSign, color: "bg-green-500" },
+  { label: "Total Orders", value: "1,429", change: "+8.2%", positive: true, icon: ShoppingCart, color: "bg-blue-500" },
+  { label: "Total Customers", value: "3,842", change: "+5.1%", positive: true, icon: Users, color: "bg-purple-500" },
+  { label: "Growth Rate", value: "18.6%", change: "-2.4%", positive: false, icon: TrendingUp, color: "bg-orange-500" },
+];
 
 export default function Dashboard() {
-  const stats = [
-    { label: "Users", value: 120, icon: "👤", color: "text-blue-400", bg: "bg-blue-500/10" },
-    { label: "Sales", value: 350, icon: "💰", color: "text-emerald-400", bg: "bg-emerald-500/10" },
-    { label: "Revenue", value: 900, icon: "📈", color: "text-violet-400", bg: "bg-violet-500/10" },
-    { label: "Visits", value: 1500, icon: "👁️", color: "text-orange-400", bg: "bg-orange-500/10" },
-  ];
-
-  // داتا جديدة للإضافات
-  const recentActivity = [
-    { id: 1, text: "New user registered", time: "2 min ago", type: "user" },
-    { id: 2, text: "Payment received #5422", time: "1 hour ago", type: "money" },
-    { id: 3, text: "Server maintenance", time: "3 hours ago", type: "system" },
-  ];
-
-  const topProducts = [
-    { name: "Premium Plan", progress: 85 },
-    { name: "Basic Plan", progress: 45 },
-    { name: "Enterprise", progress: 20 },
-  ];
-
-  const chartData = [
-    { name: "Jan", users: 30, sales: 45 },
-    { name: "Feb", users: 50, sales: 60 },
-    { name: "Mar", users: 80, sales: 75 },
-    { name: "Apr", users: 60, sales: 55 },
-    { name: "May", users: 90, sales: 85 },
-  ];
-
   return (
-    <div className="space-y-6">
+    <div className="p-6 md:p-8 space-y-6 bg-gray-50 min-h-screen">
+
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-white">Dashboard Overview</h1>
-        <p className="text-slate-400">Welcome back, here is your business summary.</p>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        
+        <div>
+          <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+          <p className="text-gray-400 text-sm mt-1">Welcome back, John 👋</p>
+        </div>
+
+        <button className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-xl text-sm shadow">
+          Download Report
+        </button>
+
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat, i) => (
-          <Card key={i} className="rounded-3xl border border-white/5 bg-white/5 backdrop-blur-md p-6 hover:bg-white/10 transition-all">
-            <div className="flex justify-between items-start">
-              <div>
-                <p className="text-sm font-medium text-slate-400">{stat.label}</p>
-                <h2 className="text-2xl font-bold text-white mt-1">{stat.value.toLocaleString()}</h2>
-              </div>
-              <div className={`p-2 rounded-xl ${stat.bg} ${stat.color}`}>{stat.icon}</div>
-            </div>
-          </Card>
+      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        {stats.map((stat) => (
+          <StatCard key={stat.label} {...stat} />
         ))}
       </div>
 
-      {/* Charts - Row */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Bar Chart (Large) */}
-        <Card className="lg:col-span-2 rounded-3xl border border-white/5 bg-white/5 backdrop-blur-md p-6">
-           <h2 className="text-lg font-bold text-white mb-4">Monthly Growth</h2>
-           <div className="w-full h-64">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={chartData}>
-                  <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#94a3b8'}} />
-                  <Tooltip contentStyle={{ backgroundColor: "#0f172a", borderRadius: "12px", border: "none" }} />
-                  <Bar dataKey="users" fill="#3b82f6" radius={[6, 6, 6, 6]} />
-                  <Bar dataKey="sales" fill="#10b981" radius={[6, 6, 6, 6]} />
-                </BarChart>
-              </ResponsiveContainer>
-           </div>
-        </Card>
-
-        {/* Top Products (New) */}
-        <Card className="rounded-3xl border border-white/5 bg-white/5 backdrop-blur-md p-6">
-          <h2 className="text-lg font-bold text-white mb-6">Top Products</h2>
-          <div className="space-y-6">
-            {topProducts.map((p, i) => (
-              <div key={i}>
-                <div className="flex justify-between text-sm mb-2">
-                  <span className="text-slate-400">{p.name}</span>
-                  <span className="text-white font-bold">{p.progress}%</span>
-                </div>
-                <div className="w-full bg-slate-800 rounded-full h-2">
-                  <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${p.progress}%` }}></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Card>
+      {/* Charts */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2">
+          <SalesChart />
+        </div>
+        <DonutChart />
       </div>
 
-      {/* Recent Activity (New Full Width Section) */}
-      <Card className="rounded-3xl border border-white/5 bg-white/5 backdrop-blur-md p-6">
-        <h2 className="text-lg font-bold text-white mb-4">Recent Activity</h2>
-        <div className="space-y-4">
-          {recentActivity.map((activity) => (
-            <div key={activity.id} className="flex items-center gap-4 p-3 hover:bg-white/5 rounded-2xl transition">
-              <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-lg">
-                {activity.type === "user" ? "👤" : activity.type === "money" ? "💰" : "⚙️"}
-              </div>
-              <div>
-                <p className="text-white font-medium">{activity.text}</p>
-                <p className="text-slate-500 text-sm">{activity.time}</p>
-              </div>
-            </div>
-          ))}
+      {/* Bottom */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+        <div className="xl:col-span-2">
+          <RecentOrders />
         </div>
-      </Card>
+        <TodoList />
+      </div>
+
     </div>
   );
 }
