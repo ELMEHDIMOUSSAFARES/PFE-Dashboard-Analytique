@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "./layout/MainLayout";
 import Dashboard from "./pages/Dashboard";
@@ -22,3 +23,31 @@ function App() {
 }
 
 export default App;
+=======
+import { useState } from "react";
+import { Button } from "./components/ui/button";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+
+import "./App.css";
+
+function App() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <>
+      <h1>Hello</h1>
+      <Button>Click ME</Button>
+    </>
+  );
+}
+
+export default App;
+>>>>>>> 0b68a1c1d5a0dda63c130051cf5fa38f2a7c1778

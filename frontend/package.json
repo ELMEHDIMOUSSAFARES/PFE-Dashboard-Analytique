@@ -14,13 +14,19 @@
     "@tailwindcss/vite": "^4.2.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+<<<<<<< HEAD
     "framer-motion": "^12.38.0",
+=======
+>>>>>>> 0b68a1c1d5a0dda63c130051cf5fa38f2a7c1778
     "lucide-react": "^1.7.0",
     "radix-ui": "^1.4.3",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+<<<<<<< HEAD
     "react-router-dom": "^7.14.0",
     "recharts": "^3.8.1",
+=======
+>>>>>>> 0b68a1c1d5a0dda63c130051cf5fa38f2a7c1778
     "shadcn": "^4.1.1",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
