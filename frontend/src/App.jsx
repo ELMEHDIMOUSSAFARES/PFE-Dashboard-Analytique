@@ -1,19 +1,25 @@
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'framer-motion';
-import { useState } from 'react';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from "react-router-dom";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 
 // Layout
-import Sidebar from '@/layout/Sidebar';
-import Header from '@/layout/Header';
+import Sidebar from "@/layout/Sidebar";
+import Header from "@/layout/Header";
 
 // Pages
-import Dashboard from '@/pages/Dashboard';
-import Analytics from '@/pages/Analytics';
-import Users from '@/pages/Users';
-import Login from '@/pages/Login';
-import Messages from '@/pages/Messages';
-import Settings from '@/pages/Settings';
-import Notifications from '@/pages/Notifications';
+import Dashboard from "@/pages/Dashboard";
+import Analytics from "@/pages/Analytics";
+import Users from "@/pages/Users";
+import Login from "@/pages/Login";
+import Messages from "@/pages/Messages";
+import Settings from "@/pages/Settings";
+import Notifications from "@/pages/Notifications";
 
 // Animation
 function PageTransition({ children }) {
@@ -45,7 +51,6 @@ function MainLayout() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-
         {/* LOGIN */}
         <Route
           path="/login"
@@ -69,16 +74,17 @@ function MainLayout() {
 
                   <main className="flex-1 overflow-y-auto p-6">
                     <Routes>
-
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/analytics" element={<Analytics />} />
                       <Route path="/users" element={<Users />} />
                       <Route path="/messages" element={<Messages />} />
                       <Route path="/settings" element={<Settings />} />
-                      <Route path="/notifications" element={<Notifications />} />
+                      <Route
+                        path="/notifications"
+                        element={<Notifications />}
+                      />
 
                       <Route path="*" element={<Navigate to="/" replace />} />
-
                     </Routes>
                   </main>
                 </div>
@@ -86,7 +92,6 @@ function MainLayout() {
             </ProtectedRoute>
           }
         />
-
       </Routes>
     </AnimatePresence>
   );
