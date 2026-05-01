@@ -3,7 +3,9 @@ from sqlalchemy.orm import Session
 from database import SessionLocal
 from models import User
 from .schemas import CreateUserReq, LoginReq
-from auth_utils import hash_password, verify_password, create_access_token
+from auth_utils import hash_password, verify_password, create_access_token, decode_token
+from .dependencies import get_current_user
+
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -14,8 +16,18 @@ def get_db():
     finally:
         db.close()
 
+
+def require_admin(user=Depends(get_current_user)):
+    if user.get("role") != "admin":
+        raise HTTPException(status_code=403, detail="Admin only")
+    return user
+
 @router.post("/register")
-def register(data: CreateUserReq, db: Session = Depends(get_db)):
+def register(
+    data: CreateUserReq,
+    db: Session = Depends(get_db),
+    user=Depends(require_admin)
+    ):
     existing = db.query(User).filter(User.email == data.email).first()
 
     if existing:

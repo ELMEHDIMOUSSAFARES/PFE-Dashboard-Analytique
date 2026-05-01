@@ -9,11 +9,13 @@ from auth.router import router as auth_router
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from auth_utils import decode_token
 from fastapi import Depends, HTTPException
+from routes.kpi import router as kpi_router
 
 
 app = FastAPI()
 models.Base.metadata.create_all(bind=engine)
 app.include_router(auth_router)
+app.include_router(kpi_router)
 
 
 origins = [
@@ -46,9 +48,3 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
 
     return payload
 
-@app.get("/test")
-def test(user=Depends(get_current_user)):
-    return {
-        "message": "JWT works",
-        "user": user
-    }
