@@ -58,3 +58,24 @@ def login(data: LoginReq, db: Session = Depends(get_db)):
     })
 
     return {"access_token": token}
+
+@router.get("/users")
+def get_users(
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    users = db.query(User).all()
+
+    return [
+        {
+            "id": u.id,
+            "email": u.email,
+            "role": u.role,
+            "is_active": u.is_active
+        }
+        for u in users
+    ]
+
+@router.get("/me")
+def me(user=Depends(get_current_user)):
+    return user

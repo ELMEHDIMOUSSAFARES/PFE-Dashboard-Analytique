@@ -8,9 +8,6 @@ export default function Notifications() {
         <div className="bg-white p-4 rounded-xl shadow-sm border">
           🔔 New user registered
         </div>
-        <div className="bg-white p-4 rounded-xl shadow-sm border">
-          💬 New message received
-        </div>
       </div>
     </div>
   );

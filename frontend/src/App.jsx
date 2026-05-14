@@ -6,7 +6,7 @@ import {
   useLocation,
 } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Layout
 import Sidebar from "@/layout/Sidebar";
@@ -17,8 +17,6 @@ import Dashboard from "@/pages/Dashboard";
 import Analytics from "@/pages/Analytics";
 import Users from "@/pages/Users";
 import Login from "@/pages/Login";
-import Messages from "@/pages/Messages";
-import Settings from "@/pages/Settings";
 import Notifications from "@/pages/Notifications";
 
 // Animation
@@ -45,8 +43,38 @@ function ProtectedRoute({ isAuth, children }) {
 function MainLayout() {
   const location = useLocation();
 
-  // 🔥 auth state (simple)
-  const [isAuth, setIsAuth] = useState(false);
+  // auth
+  const [isAuth, setIsAuth] = useState(null); // null = loading
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem("token");
+
+      if (!token || token === "undefined" || token === "null") {
+        setIsAuth(false);
+        return;
+      }
+
+      const res = await fetch("http://127.0.0.1:8000/auth/me", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (res.ok) {
+        setIsAuth(true);
+      } else {
+        localStorage.removeItem("token");
+        setIsAuth(false);
+      }
+    };
+
+    checkAuth();
+  }, []);
+
+  if (isAuth === null) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <AnimatePresence mode="wait">
@@ -55,9 +83,13 @@ function MainLayout() {
         <Route
           path="/login"
           element={
-            <PageTransition>
-              <Login onLogin={() => setIsAuth(true)} />
-            </PageTransition>
+            isAuth ? (
+              <Navigate to="/" replace />
+            ) : (
+              <PageTransition>
+                <Login onLogin={() => (window.location.href = "/")} />
+              </PageTransition>
+            )
           }
         />
 
@@ -77,8 +109,6 @@ function MainLayout() {
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/analytics" element={<Analytics />} />
                       <Route path="/users" element={<Users />} />
-                      <Route path="/messages" element={<Messages />} />
-                      <Route path="/settings" element={<Settings />} />
                       <Route
                         path="/notifications"
                         element={<Notifications />}
