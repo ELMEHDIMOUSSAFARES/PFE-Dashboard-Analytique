@@ -1,5 +1,5 @@
-import SalesChart from '../components/SalesChart';
-import DonutChart from '../components/DonutChart';
+import RevenueChart from "../components/RevenueChart";
+import DonutChart from "../components/DonutChart";
 
 export default function Analytics() {
   return (
@@ -9,7 +9,7 @@ export default function Analytics() {
         <p className="text-gray-400 text-sm mt-1">Track your performance</p>
       </div>
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-        <SalesChart />
+        <RevenueChart />
         <DonutChart />
       </div>
     </div>

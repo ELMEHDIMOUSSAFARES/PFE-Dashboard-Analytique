@@ -1,43 +1,10 @@
 import { DollarSign, ShoppingCart, Users, TrendingUp } from "lucide-react";
 import StatCard from "../components/StatCard";
 import RecentOrders from "../components/RecentOrders";
-import SalesChart from "../components/SalesChart";
+import RevenueChart from "../components/RevenueChart";
 import DonutChart from "../components/DonutChart";
-
-const stats = [
-  {
-    label: "Total Revenue",
-    value: "$48,295",
-    change: "+12.5%",
-    positive: true,
-    icon: DollarSign,
-    color: "bg-green-500",
-  },
-  {
-    label: "Total Orders",
-    value: "1,429",
-    change: "+8.2%",
-    positive: true,
-    icon: ShoppingCart,
-    color: "bg-blue-500",
-  },
-  {
-    label: "Total Customers",
-    value: "3,842",
-    change: "+5.1%",
-    positive: true,
-    icon: Users,
-    color: "bg-purple-500",
-  },
-  {
-    label: "Growth Rate",
-    value: "18.6%",
-    change: "-2.4%",
-    positive: false,
-    icon: TrendingUp,
-    color: "bg-orange-500",
-  },
-];
+import { useEffect, useState } from "react";
+import DashStats from "../components/DashStats";
 
 export default function Dashboard() {
   return (
@@ -53,22 +20,15 @@ export default function Dashboard() {
           Download Report
         </button>
       </div>
-
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-        {stats.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
-        ))}
-      </div>
-
+      <DashStats />
       {/* Charts */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div className="xl:col-span-2">
-          <SalesChart />
+          <RevenueChart />
         </div>
         <DonutChart />
       </div>
-
       {/* Bottom */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
         <div className="xl:col-span-2">
