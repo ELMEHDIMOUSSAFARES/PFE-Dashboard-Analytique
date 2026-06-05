@@ -123,3 +123,49 @@ def students_growth(
         {"month": str(r[0]), "new_students": r[1]}
         for r in results
     ]
+
+@router.get("/attendance-summary")
+def attendance_summary(
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    present = db.query(Attendance)\
+        .filter(Attendance.status == "present")\
+        .count()
+
+    absent = db.query(Attendance)\
+        .filter(Attendance.status == "absent")\
+        .count()
+
+    return {
+        "present": present,
+        "absent": absent
+    }
+
+
+@router.get("/recent-payments")
+def recent_payments(
+    user=Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    results = db.query(
+        Payment.id,
+        Student.name,
+        Payment.amount,
+        Payment.date
+    ).join(
+        Student,
+        Payment.student_id == Student.id
+    ).order_by(
+        Payment.date.desc()
+    ).limit(5).all()
+
+    return [
+        {
+            "id": r[0],
+            "student": r[1],
+            "amount": r[2],
+            "date": str(r[3]),
+        }
+        for r in results
+    ]
