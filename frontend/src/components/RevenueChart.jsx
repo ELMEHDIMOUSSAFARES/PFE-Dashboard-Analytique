@@ -41,9 +41,9 @@ export default function RevenueChart() {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
       <div className="mb-6">
-        <h2 className="font-semibold text-gray-800">Monthly Revenue</h2>
+        <h2 className="font-semibold text-gray-800">Encaissements mensuels</h2>
 
-        <p className="text-sm text-gray-400">Payments evolution</p>
+        <p className="text-sm text-gray-400">Évolution des versements</p>
       </div>
 
       <ResponsiveContainer width="100%" height={260}>

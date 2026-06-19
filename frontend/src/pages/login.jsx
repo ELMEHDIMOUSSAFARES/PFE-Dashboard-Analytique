@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import schoolIcon from "@/assets/Ecole-Logo.webp";
 
 export default function Login({ onLogin }) {
   const [showPass, setShowPass] = useState(false);
@@ -38,12 +39,12 @@ export default function Login({ onLogin }) {
 
     if (!res.ok) {
       localStorage.removeItem("token");
-      setError(data.detail || "Wrong credentials");
+      setError(data.detail || "Identifiants incorrects");
       return;
     }
 
     if (!data.access_token) {
-      setError("Server error, try again");
+      setError("Erreur du serveur, veuillez réessayer");
       return;
     }
 
@@ -56,7 +57,7 @@ export default function Login({ onLogin }) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p className="text-lg text-gray-600">
-          You are already logged in, redirecting you to dashboard...
+          Vous êtes déjà connecté. Redirection vers le tableau de bord...
         </p>
       </div>
     );
@@ -81,20 +82,24 @@ export default function Login({ onLogin }) {
           <div className="flex justify-center mb-8">
             <div
               className="
-            w-14 h-14 bg-indigo-600 rounded-2xl
+            w-14 h-14  rounded-2xl
             flex items-center justify-center
-            shadow-lg shadow-indigo-200
+            shadow-lg shadow-purple-100
           "
             >
-              <span className="text-white font-bold text-2xl">D</span>
+              <img
+                src={schoolIcon}
+                alt="Ecole Racine"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
 
-          <h1 className="text-2xl font-bold text-gray-800 text-center mb-1">
-            Welcome back
+          <h1 className="text-2xl font-bold text-gray-800 text-center mb-1 select-none">
+            Bienvenue
           </h1>
-          <p className="text-gray-400 text-sm text-center mb-8">
-            Sign in to your account
+          <p className="text-gray-400 text-sm text-center mb-8 select-none">
+            Connectez-vous à votre compte
           </p>
 
           {/* Form */}
@@ -104,7 +109,7 @@ export default function Login({ onLogin }) {
               <Mail size={18} className="text-gray-400" />
               <input
                 type="email"
-                placeholder="Email address"
+                placeholder="Adresse e-mail"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="flex-1 bg-transparent text-sm outline-none"
@@ -117,7 +122,7 @@ export default function Login({ onLogin }) {
               <Lock size={18} className="text-gray-400" />
               <input
                 type={showPass ? "text" : "password"}
-                placeholder="Password"
+                placeholder="Mot de passe"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="flex-1 bg-transparent text-sm outline-none"
@@ -142,7 +147,7 @@ export default function Login({ onLogin }) {
               transition-all
             "
             >
-              Sign In
+              Se connecter
             </button>
           </div>
         </div>

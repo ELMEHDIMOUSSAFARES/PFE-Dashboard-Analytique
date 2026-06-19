@@ -1,4 +1,4 @@
-import { Bell, ChevronDown } from "lucide-react";
+import { House, ChevronDown, Settings, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import userIcon from "@/assets/user_icon.svg";
@@ -6,8 +6,6 @@ import adminIcon from "@/assets/admin_icon.svg";
 
 export default function Header() {
   const navigate = useNavigate();
-
-  const notifications = 3;
 
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
@@ -53,45 +51,31 @@ export default function Header() {
 
       {/* RIGHT */}
       <div className="flex items-center gap-4">
-        {/* 🔔 Notifications */}
+        {/* Main Dashboard Shortcut */}
         <button
-          onClick={() => navigate("/notifications")}
+          onClick={() => navigate("/")}
           className="relative w-10 h-10 rounded-xl bg-gray-50
                      flex items-center justify-center
-                     hover:bg-gray-100 transition-all"
+                     hover:bg-gray-100 transition-all cursor-pointer"
         >
-          <Bell size={18} className="text-gray-600" />
-
-          {/* Badge */}
-          {notifications > 0 && (
-            <span
-              className="
-              absolute -top-1 -right-1
-              bg-red-500 text-white text-[10px]
-              w-5 h-5 flex items-center justify-center
-              rounded-full font-semibold
-            "
-            >
-              {notifications}
-            </span>
-          )}
+          <House size={18} className="text-gray-600 w-8 h-8" />
         </button>
 
         {/* USER */}
         <div className="relative">
           <div
             onClick={() => setOpen(!open)}
-            className="flex items-center gap-3 hover:bg-gray-50 rounded-xl px-3 py-2 transition-all cursor-pointer"
+            className="flex items-center gap-3 hover:bg-gray-50 rounded-xl px-3 py-2 transition-all cursor-pointer select-none"
           >
             <img
               src={user?.role === "admin" ? adminIcon : userIcon}
-              alt="User"
+              alt="Utilisateur"
               className="w-9 h-9 rounded-xl object-cover"
             />
 
             <div className="text-left">
               <p className="text-sm font-semibold text-gray-800">
-                {user?.sub || "Loading..."}
+                {user?.full_name || "Chargement..."}
               </p>
               <p className="text-xs text-gray-400">{user?.role || ""}</p>
             </div>
@@ -101,12 +85,23 @@ export default function Header() {
 
           {/* DROPDOWN */}
           {open && (
-            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-100 rounded-xl shadow-lg">
+            <div className="absolute right-0 mt-2 w-44 overflow-hidden bg-white border border-gray-100 rounded-xl shadow-lg">
+              <button
+                onClick={() => {
+                  setOpen(false);
+                  navigate("/settings");
+                }}
+                className="flex w-full items-center gap-2 px-4 py-2 text-left text-sm text-gray-600 hover:bg-gray-50 cursor-pointer"
+              >
+                <Settings size={16} />
+                Paramètres
+              </button>
               <button
                 onClick={handleLogout}
-                className="w-full text-left px-4 py-2 text-sm bg-red-100 hover:bg-red-300 rounded-xl cursor-pointer"
+                className="flex w-full text-left items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 cursor-pointer"
               >
-                Sign out
+                <LogOut size={16} />
+                Se déconnecter
               </button>
             </div>
           )}

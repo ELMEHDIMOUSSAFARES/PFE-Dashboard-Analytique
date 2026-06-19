@@ -1,11 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, BarChart3, Users, Bell } from "lucide-react";
+import { LayoutDashboard, BarChart3, Users, Settings } from "lucide-react";
+import schoolIcon from "@/assets/Ecole-Logo.webp";
 
 const navItems = [
-  { icon: LayoutDashboard, path: "/", label: "Dashboard" },
-  { icon: BarChart3, path: "/analytics", label: "Analytics" },
-  { icon: Users, path: "/users", label: "Users" },
-  { icon: Bell, path: "/notifications", label: "Notifications" },
+  { icon: LayoutDashboard, path: "/", label: "Tableau de bord" },
+  { icon: BarChart3, path: "/analytics", label: "Analyses" },
+  { icon: Users, path: "/users", label: "Utilisateurs" },
+  { icon: Settings, path: "/settings", label: "Paramètres" },
 ];
 
 export default function Sidebar() {
@@ -19,8 +20,12 @@ export default function Sidebar() {
     "
     >
       {/* Logo */}
-      <div className="w-12 h-12 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-md">
-        <span className="text-white font-bold text-lg">D</span>
+      <div className="w-12 h-12 rounded-2xl flex items-center justify-center shadow-md">
+        <img
+          src={schoolIcon}
+          alt="Ecole Racine"
+          className="w-full h-full object-contain"
+        />
       </div>
 
       {/* Nav */}
@@ -35,7 +40,7 @@ export default function Sidebar() {
               rounded-xl transition-all duration-200 group
               ${
                 isActive
-                  ? "bg-indigo-600 text-white shadow-lg shadow-indigo-200"
+                  ? "bg-purple-700 text-white shadow-lg shadow-indigo-200"
                   : "text-gray-400 hover:bg-gray-100 hover:text-gray-700"
               }
             `}

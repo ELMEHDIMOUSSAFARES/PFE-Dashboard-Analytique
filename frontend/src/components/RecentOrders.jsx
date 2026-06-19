@@ -14,7 +14,7 @@ export default function RecentPayments() {
       });
 
       if (!res.ok) {
-        console.error("Failed to fetch payments");
+        console.error("Impossible de charger les paiements");
         return;
       }
 
@@ -30,18 +30,18 @@ export default function RecentPayments() {
     <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
       {/* Header */}
       <div className="px-6 py-4 border-b border-gray-100">
-        <h2 className="font-semibold text-gray-800">Recent Payments</h2>
+        <h2 className="font-semibold text-gray-800">Paiements récents</h2>
 
-        <p className="text-sm text-gray-400 mt-1">Latest student payments</p>
+        <p className="text-sm text-gray-400 mt-1">Derniers versements des stagiaires</p>
       </div>
 
       {/* Table */}
       <table className="w-full">
         <thead>
           <tr className="text-left text-xs text-gray-400 uppercase">
-            <th className="px-6 py-3">Payment ID</th>
-            <th className="px-6 py-3">Student</th>
-            <th className="px-6 py-3">Amount</th>
+            <th className="px-6 py-3">ID paiement</th>
+            <th className="px-6 py-3">Stagiaire</th>
+            <th className="px-6 py-3">Montant</th>
             <th className="px-6 py-3">Date</th>
           </tr>
         </thead>

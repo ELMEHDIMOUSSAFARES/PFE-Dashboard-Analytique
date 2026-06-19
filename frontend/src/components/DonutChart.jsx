@@ -21,7 +21,7 @@ export default function DonutChart() {
 
       const formatted = [
         {
-          name: "Present",
+          name: "Présent",
           value: result.present,
         },
         {
@@ -41,9 +41,9 @@ export default function DonutChart() {
   return (
     <div className="bg-white rounded-2xl p-6 shadow-md border border-gray-100">
       <div className="mb-6">
-        <h2 className="font-semibold text-gray-800">Attendance Distribution</h2>
+        <h2 className="font-semibold text-gray-800">Répartition de la présence</h2>
 
-        <p className="text-sm text-gray-400">Present vs absent students</p>
+        <p className="text-sm text-gray-400">Présences et absences enregistrées</p>
       </div>
 
       <div className="relative w-full h-60">
@@ -68,7 +68,7 @@ export default function DonutChart() {
         <div className="absolute inset-0 flex items-center justify-center flex-col">
           <p className="text-2xl font-bold text-gray-800">{total}</p>
 
-          <span className="text-sm text-gray-400">Records</span>
+          <span className="text-sm text-gray-400">Enregistrements</span>
         </div>
       </div>
 

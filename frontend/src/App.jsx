@@ -17,7 +17,7 @@ import Dashboard from "@/pages/Dashboard";
 import Analytics from "@/pages/Analytics";
 import Users from "@/pages/Users";
 import Login from "@/pages/Login";
-import Notifications from "@/pages/Notifications";
+import Settings from "@/pages/Settings";
 
 // Animation
 function PageTransition({ children }) {
@@ -73,7 +73,7 @@ function MainLayout() {
   }, []);
 
   if (isAuth === null) {
-    return <div>Loading...</div>;
+    return <div>Chargement...</div>;
   }
 
   return (
@@ -109,11 +109,7 @@ function MainLayout() {
                       <Route path="/" element={<Dashboard />} />
                       <Route path="/analytics" element={<Analytics />} />
                       <Route path="/users" element={<Users />} />
-                      <Route
-                        path="/notifications"
-                        element={<Notifications />}
-                      />
-
+                      <Route path="/settings" element={<Settings />} />
                       <Route path="*" element={<Navigate to="/" replace />} />
                     </Routes>
                   </main>

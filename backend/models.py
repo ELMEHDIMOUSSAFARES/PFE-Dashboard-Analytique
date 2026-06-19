@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from sqlalchemy import Boolean, Column, Date, DateTime, Float, ForeignKey, Integer, String
+from sqlalchemy import Boolean, CheckConstraint, Column, Date, DateTime, Float, ForeignKey, Integer, String
 from database import Base
 
 class Student(Base):
@@ -7,11 +7,14 @@ class Student(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     email = Column(String)
+    specialty = Column(String)
+    class_name = Column(String)
 
 class Course(Base):
     __tablename__ = "courses"
     id = Column(Integer, primary_key=True)
     title = Column(String)
+    specialty = Column(String)
 
 class Enrollment(Base):
     __tablename__ = "enrollments"
@@ -42,7 +45,16 @@ class User(Base):
     
     id = Column(Integer, primary_key=True)
     email = Column(String, unique=True, index=True)
+    full_name = Column(String, nullable=False)
+
     password_hash = Column(String)
-    role = Column(String)  # admin, staff, teacher
+    role = Column(String, nullable=False)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+
+    __table_args__ = (
+        CheckConstraint(
+            "role IN ('admin', 'personnel')",
+            name="check_user_role"
+        ),
+    )

@@ -65,28 +65,28 @@ export default function DashStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6">
       <StatCard
-        label="Total Students"
+        label="Total des stagiaires"
         value={stats.students}
         icon={Users}
         color="bg-indigo-500"
       />
 
       <StatCard
-        label="Revenue"
+        label="Recettes"
         value={`${stats.revenue} MAD`}
         icon={revIcon}
         color="bg-green-500"
       />
 
       <StatCard
-        label="Enrollments"
+        label="Inscriptions"
         value={stats.enrollments}
         icon={ClipboardList}
         color="bg-blue-500"
       />
 
       <StatCard
-        label="Attendance Rate"
+        label="Taux de présence"
         value={`${stats.attendance}%`}
         icon={CheckCircle}
         color="bg-emerald-500"
