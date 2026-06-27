@@ -8,6 +8,12 @@ class CreateUserReq(BaseModel):
   role: Literal["admin", "personnel"]
 
 
+class SetupReq(BaseModel):
+  email: EmailStr
+  full_name: str
+  password: str
+
+
 class LoginReq(BaseModel):
   email: EmailStr
   password: str

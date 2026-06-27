@@ -4,7 +4,7 @@ import { emptyFilters, formatMonth } from "@/lib/kpi";
 
 export default function AcademicFilters({ filters, setFilters, options }) {
   const modules = options.modules.filter(
-    (module) => !filters.specialty || module.specialty === filters.specialty
+    (module) => !filters.specialty || module.specialty === filters.specialty,
   );
   const classes = options.classes.filter((className) => {
     if (!filters.specialty) return true;
@@ -55,7 +55,9 @@ export default function AcademicFilters({ filters, setFilters, options }) {
           Mois académique
           <select
             value={filters.academic_month}
-            onChange={(event) => updateFilter("academic_month", event.target.value)}
+            onChange={(event) =>
+              updateFilter("academic_month", event.target.value)
+            }
             className="mt-2 w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-indigo-400"
           >
             <option value="">Tous les mois</option>
@@ -104,7 +106,9 @@ export default function AcademicFilters({ filters, setFilters, options }) {
             Classe
             <select
               value={filters.class_name}
-              onChange={(event) => updateFilter("class_name", event.target.value)}
+              onChange={(event) =>
+                updateFilter("class_name", event.target.value)
+              }
               className="mt-2 w-full rounded-xl border border-gray-200 bg-gray-50 px-3 py-2 text-sm outline-none focus:border-indigo-400"
             >
               <option value="">Toutes les classes</option>
@@ -119,7 +123,7 @@ export default function AcademicFilters({ filters, setFilters, options }) {
             type="button"
             title="Réinitialiser les filtres"
             onClick={() => setFilters(emptyFilters)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-gray-200 text-gray-500 hover:bg-gray-50 cursor-pointer"
           >
             <RefreshCcw size={16} />
           </button>

@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from database import SessionLocal
 from models import User
-from .schemas import ChangePasswordReq, CreateUserReq, LoginReq, UpdateProfileReq
+from .schemas import ChangePasswordReq, CreateUserReq, LoginReq, SetupReq, UpdateProfileReq
 from auth_utils import hash_password, verify_password, create_access_token, decode_token
 from .dependencies import get_current_user
 
@@ -21,6 +21,36 @@ def require_admin(user=Depends(get_current_user)):
     if user.get("role") != "admin":
         raise HTTPException(status_code=403, detail="Admin only")
     return user
+
+
+@router.get("/setup-status")
+def setup_status(db: Session = Depends(get_db)):
+    return {"setup_required": db.query(User).first() is None}
+
+
+@router.post("/setup")
+def setup(data: SetupReq, db: Session = Depends(get_db)):
+    if db.query(User).first():
+        raise HTTPException(status_code=403, detail="Setup already completed")
+
+    user = User(
+        email=data.email,
+        full_name=data.full_name,
+        password_hash=hash_password(data.password),
+        role="admin"
+    )
+
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+
+    return {
+        "id": user.id,
+        "email": user.email,
+        "full_name": user.full_name,
+        "role": user.role,
+        "is_active": user.is_active
+    }
 
 @router.post("/register")
 def register(

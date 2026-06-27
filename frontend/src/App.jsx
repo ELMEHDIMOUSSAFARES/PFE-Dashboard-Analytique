@@ -18,6 +18,7 @@ import Analytics from "@/pages/Analytics";
 import Users from "@/pages/Users";
 import Login from "@/pages/Login";
 import Settings from "@/pages/Settings";
+import Setup from "@/pages/Setup";
 
 // Animation
 function PageTransition({ children }) {
@@ -35,8 +36,8 @@ function PageTransition({ children }) {
 }
 
 // 🔐 Protected Route
-function ProtectedRoute({ isAuth, children }) {
-  if (!isAuth) return <Navigate to="/login" replace />;
+function ProtectedRoute({ isAuth, setupRequired, children }) {
+  if (!isAuth) return <Navigate to={setupRequired ? "/setup" : "/login"} replace />;
   return children;
 }
 
@@ -45,9 +46,18 @@ function MainLayout() {
 
   // auth
   const [isAuth, setIsAuth] = useState(null); // null = loading
+  const [setupRequired, setSetupRequired] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
+      try {
+        const setupRes = await fetch("http://127.0.0.1:8000/auth/setup-status");
+        const setupData = await setupRes.json();
+        setSetupRequired(Boolean(setupData.setup_required));
+      } catch {
+        setSetupRequired(false);
+      }
+
       const token = localStorage.getItem("token");
 
       if (!token || token === "undefined" || token === "null") {
@@ -72,7 +82,7 @@ function MainLayout() {
     checkAuth();
   }, []);
 
-  if (isAuth === null) {
+  if (isAuth === null || setupRequired === null) {
     return <div>Chargement...</div>;
   }
 
@@ -83,7 +93,9 @@ function MainLayout() {
         <Route
           path="/login"
           element={
-            isAuth ? (
+            setupRequired ? (
+              <Navigate to="/setup" replace />
+            ) : isAuth ? (
               <Navigate to="/" replace />
             ) : (
               <PageTransition>
@@ -93,11 +105,24 @@ function MainLayout() {
           }
         />
 
+        <Route
+          path="/setup"
+          element={
+            setupRequired ? (
+              <PageTransition>
+                <Setup onSetupComplete={() => setSetupRequired(false)} />
+              </PageTransition>
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+
         {/* APP */}
         <Route
           path="/*"
           element={
-            <ProtectedRoute isAuth={isAuth}>
+            <ProtectedRoute isAuth={isAuth} setupRequired={setupRequired}>
               <div className="flex min-h-screen bg-gray-50 text-slate-900">
                 <Sidebar />
 
