@@ -139,7 +139,7 @@ export default function Users() {
               setMessage("");
               setIsModalOpen(true);
             }}
-            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700"
+            className="flex items-center gap-2 rounded-xl bg-indigo-600 px-4 py-2 text-sm text-white hover:bg-indigo-700 cursor-pointer"
           >
             <Plus size={16} />
             Ajouter un utilisateur

@@ -161,7 +161,9 @@ export default function Dashboard() {
     <div className="min-h-screen space-y-6 bg-gray-50 p-6 md:p-8">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-800">Tableau de bord Racine</h1>
+          <h1 className="text-3xl font-bold text-gray-800">
+            Tableau de bord Racine
+          </h1>
           <p className="mt-1 text-sm text-gray-400">
             Pilotage des Techniciens Spécialisés, {user?.full_name || ""}
           </p>
@@ -206,7 +208,9 @@ export default function Dashboard() {
       />
 
       {loading && (
-        <p className="text-sm text-gray-400">Actualisation du tableau de bord...</p>
+        <p className="text-sm text-gray-400">
+          Actualisation du tableau de bord...
+        </p>
       )}
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -286,12 +290,14 @@ export default function Dashboard() {
               <Line
                 type="monotone"
                 dataKey="expected_revenue"
+                name="Recettes attendues"
                 stroke="#94a3b8"
                 strokeDasharray="5 5"
               />
               <Area
                 type="monotone"
                 dataKey="revenue"
+                name="Recettes encaissées"
                 stroke="#16a34a"
                 fill="url(#racineRevenue)"
               />
@@ -309,8 +315,19 @@ export default function Dashboard() {
               <XAxis dataKey="label" />
               <YAxis allowDecimals={false} />
               <Tooltip />
-              <Bar dataKey="paid_installments" fill="#2563eb" radius={[6, 6, 0, 0]} />
-              <Line type="monotone" dataKey="expected_installments" stroke="#f59e0b" strokeWidth={2} />
+              <Bar
+                dataKey="paid_installments"
+                name="Échéances réglées"
+                fill="#2563eb"
+                radius={[6, 6, 0, 0]}
+              />
+              <Line
+                type="monotone"
+                dataKey="expected_installments"
+                name="Échéances attendues"
+                stroke="#f59e0b"
+                strokeWidth={2}
+              />
             </BarChart>
           </ResponsiveContainer>
         </ChartPanel>
@@ -328,6 +345,7 @@ export default function Dashboard() {
               <Line
                 type="monotone"
                 dataKey="attendance_rate"
+                name="Taux de présence"
                 stroke="#7c3aed"
                 strokeWidth={2}
               />
@@ -344,6 +362,7 @@ export default function Dashboard() {
               <Pie
                 data={dashboard.specialties}
                 dataKey="students"
+                name="Nombre de stagiaires"
                 nameKey="specialty"
                 innerRadius={60}
                 outerRadius={95}
@@ -373,7 +392,12 @@ export default function Dashboard() {
               />
               <YAxis />
               <Tooltip formatter={(value) => formatCurrency(value)} />
-              <Bar dataKey="revenue" fill="#0f766e" radius={[6, 6, 0, 0]} />
+              <Bar
+                dataKey="revenue"
+                name="Recettes encaissées"
+                fill="#0f766e"
+                radius={[6, 6, 0, 0]}
+              />
             </BarChart>
           </ResponsiveContainer>
         </ChartPanel>
@@ -395,6 +419,7 @@ export default function Dashboard() {
               <Tooltip />
               <Bar
                 dataKey="attendance_rate"
+                name="Taux de présence"
                 fill="#6366f1"
                 radius={[6, 6, 0, 0]}
               />
@@ -445,7 +470,12 @@ export default function Dashboard() {
                 tick={{ fontSize: 11 }}
               />
               <Tooltip />
-              <Bar dataKey="students" fill="#2563eb" radius={[0, 6, 6, 0]} />
+              <Bar
+                dataKey="students"
+                name="Nombre de stagiaires"
+                fill="#2563eb"
+                radius={[0, 6, 6, 0]}
+              />
             </BarChart>
           </ResponsiveContainer>
         </ChartPanel>

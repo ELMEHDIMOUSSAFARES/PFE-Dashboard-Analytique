@@ -164,8 +164,8 @@ export default function Analytics() {
             Comparaison des filières
           </h2>
           <p className="text-sm text-gray-400">
-            Comparaison destinée à la direction entre Développement
-            Informatique et Financier Comptable
+            Comparaison destinée à la direction entre Développement Informatique
+            et Financier Comptable
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -193,12 +193,14 @@ export default function Analytics() {
                 <Bar
                   yAxisId="students"
                   dataKey="students"
+                  name="Nombre de stagiaires"
                   fill="#2563eb"
                   radius={[6, 6, 0, 0]}
                 />
                 <Line
                   yAxisId="revenue"
                   dataKey="revenue"
+                  name="Recettes encaissées"
                   stroke="#16a34a"
                   strokeWidth={2}
                 />
@@ -230,12 +232,14 @@ export default function Analytics() {
                 <Bar
                   yAxisId="rate"
                   dataKey="attendance_rate"
+                  name="Taux de présence"
                   fill="#6366f1"
                   radius={[6, 6, 0, 0]}
                 />
                 <Line
                   yAxisId="absences"
                   dataKey="absences"
+                  name="Nombre d'absences"
                   stroke="#ef4444"
                   strokeWidth={2}
                 />
@@ -268,6 +272,7 @@ export default function Analytics() {
                 <Line
                   type="monotone"
                   dataKey="revenue"
+                  name="Recettes encaissées"
                   stroke="#16a34a"
                   strokeWidth={2}
                 />
@@ -287,6 +292,7 @@ export default function Analytics() {
                 <Tooltip />
                 <Bar
                   dataKey="enrollments"
+                  name="Nombre d'inscriptions"
                   fill="#2563eb"
                   radius={[6, 6, 0, 0]}
                 />
@@ -302,7 +308,8 @@ export default function Analytics() {
             Diagnostic au niveau des modules
           </h2>
           <p className="text-sm text-gray-400">
-            Identification des modules avec trop d’absences ou une faible présence
+            Identification des modules avec trop d’absences ou une faible
+            présence
           </p>
         </div>
         <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -327,6 +334,7 @@ export default function Analytics() {
                 <Tooltip />
                 <Bar
                   dataKey="attendance_rate"
+                  name="Taux de présence"
                   fill="#7c3aed"
                   radius={[0, 6, 6, 0]}
                 />
@@ -383,7 +391,8 @@ export default function Analytics() {
             IA et innovation
           </h2>
           <p className="text-sm text-gray-400">
-            Modèles légers sélectionnés pour être expliqués pendant la soutenance
+            Modèles légers sélectionnés pour être expliqués pendant la
+            soutenance
           </p>
         </div>
 
@@ -584,8 +593,8 @@ export default function Analytics() {
           <div className="rounded-xl bg-gray-50 p-4">
             <AlertTriangle size={18} className="mb-2 text-amber-600" />
             <p className="text-sm text-gray-600">
-              Les scores Z signalent les baisses de présence et les encaissements
-              très éloignés des mois habituels.
+              Les scores Z signalent les baisses de présence et les
+              encaissements très éloignés des mois habituels.
             </p>
           </div>
           <div className="rounded-xl bg-gray-50 p-4">
